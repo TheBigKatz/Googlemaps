@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Street View Project</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        float: left;
+        height: 100%;
+        width: 35%;
+      }
+      #pano {
+        height: 100%;
+        width: 65%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="pano"></div>
+    <script>
+
+      function initialize() {
+        var stadium = {lat: 33.993434, lng: -84.419317};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: stadium,
+          zoom: 14
+        });
+        var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+              position: stadium,
+              pov: {
+                heading: 12,
+                pitch: 10
+              }
+            });
+        map.setStreetView(panorama);
+      }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbD7jSArZFkWe1uIIYdYxFNagxSqUAAkk&callback=initialize">
+    </script>
+  </body>
+</html>

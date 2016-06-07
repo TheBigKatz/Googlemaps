@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="hideButton">Hide Markers</button>
+    <button id="showButton">Show Markers</button>
+    <div id="map"></div>
+    <script>
+      var markers = [];
+
+      function initMap() {
+        var atlanta = {lat: 33.748995, lng: -84.387982};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: atlanta
+        });
+
+        makeMarker({ lat: 33.773887, lng: -84.402853 }, map, 'A');
+        makeMarker({ lat: 37.774929, lng: -122.419416 }, map, 'B');
+        makeMarker({ lat: 40.712784, lng: -74.005941 }, map, 'C');
+        makeMarker({ lat: 30.267153, lng: -97.743061 }, map, 'D');
+
+        function makeMarker(location, map, label) {
+          var marker = new google.maps.Marker({
+            position: location,
+            // attach top map
+            map: map,
+            label: label,
+            animation: google.maps.Animation.DROP,
+            draggable: true
+          });
+          markers.push(marker);
+        }
+
+        var hideButton = document.getElementById('hideButton');
+        var showButton = document.getElementById('showButton');
+
+        hideButton.addEventListener('click', function() {
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+        });
+
+        showButton.addEventListener('click', function() {
+          markers.forEach(function(marker) {
+            marker.setMap(map);
+          });
+        });
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzbI4P8Meay71BuIsY5Z678DhVQDSCwx0&callback=initMap">
+    </script>
+  </body>
+</html>
